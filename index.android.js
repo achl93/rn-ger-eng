@@ -1,20 +1,8 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-  /*
- http://stackoverflow.com/questions/35849848/how-can-i-properly-import-a-component-into-my-navigator-in-react-native
-https://medium.com/the-react-native-log/organizing-a-react-native-project-9514dfadaa0
-http://stackoverflow.com/questions/33196334/how-to-do-a-multi-page-app-in-react-native
-http://facebook.github.io/react-native/docs/navigator.html#content
-https://code.tutsplus.com/tutorials/creating-a-dictionary-app-using-react-native-for-android--cms-24969
-*/
-
 import React, {Component} from 'react';
 import {AppRegistry, Text, View, StyleSheet, TextInput} from 'react-native';
 var english_german = require('./english_german.json');
 var SharedPreferences = require('react-native-shared-preferences');
+import Swiper from 'react-native-swiper';
 
 class Dictionary extends Component {
   constructor(props) {
@@ -25,12 +13,14 @@ class Dictionary extends Component {
       history: ''
     };
   }
-  //loadHistory() {
-  //  SharedPreferences.getAll(function(values){
-  //    console.log(values);
-  //    this.setState({"history": values});
-  //  }).done();
-  //}
+  /*
+  loadHistory() {
+    SharedPreferences.getAll(function(values){
+      console.log(values);
+      this.setState({"history": values});
+    }).done();
+  }
+  */
   showMeaning() {
     var meaning = this.state.input in english_german ?
       english_german[this.state.input] :
@@ -41,6 +31,7 @@ class Dictionary extends Component {
   }
   render() {
     return (
+      <Swiper showsButtons={true}>
       <View style = {styles.parent}>
         <Text>
           English:
@@ -62,6 +53,8 @@ class Dictionary extends Component {
         <Text style = {styles.germanWord}>
           {this.state.output}
         </Text>
+        </View>
+        <View style = {styles.parent}>
         <Text style = {styles.history}>
           History:
         </Text>
@@ -69,12 +62,14 @@ class Dictionary extends Component {
           {this.state.history}
         </Text>
       </View>
+      </Swiper>
     );
   }
-  //saveHistory(key, value) {
-  //  SharedPreferences.setItem(key, value);
-  //  this.setState({"history": value});
-  //}
+  /*
+  saveHistory(key, value) {
+  SharedPreferences.setItem(key, value);
+  this.setState({"history": value});
+  */
 }
 const styles = StyleSheet.create({
   parent: {
